@@ -72,7 +72,7 @@ $(document).ready(function() {
   myData.push("go");
 
   sightiesApp = {
-    wordList : myData,
+    wordList : new Array(),
     wordIndex : 0,
     showNewWord : function() {
       $("#the_word").html(this.wordList[this.wordIndex]);
@@ -115,7 +115,16 @@ $(document).ready(function() {
     }
   };
 
-  sightiesApp.updateDisplay();
+  $.getJSON('words.json', function(data) {
+    var items = new Array();
+    var i;
+
+    for (i = 0; i < data.length; i++) {
+      items.push(data[i]['name']);
+    }
+    sightiesApp.wordList = items;
+    sightiesApp.updateDisplay();
+  });
 
   $(document).keydown(function(e){
     if (e.keyCode == 37) { // left arrow
