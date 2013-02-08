@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <title>Practice Sight Words</title>
 <style type="text/css">
+#shuffle {
+  float: clear;
+  text-align: center;
+}
 #previous {
   float: left;
   height: 80px;
@@ -90,19 +94,30 @@ $(document).ready(function() {
       if (this.wordIndex < this.wordList.length - 1) {
         this.wordIndex = this.wordIndex + 1;
       }
+    },
+    loadOrdered : function() {
+      this.load('ordered');
+    },
+    loadShuffled : function() {
+      this.load('shuffled');
+    },
+    load : function(opts) {
+      var queryStr = '?' + opts + '=true';
+      $.getJSON('words.json' + queryStr, function(data) {
+        var items = new Array();
+        var i;
+
+        for (i = 0; i < data.length; i++) {
+          items.push(data[i]['name']);
+        }
+        sightiesApp.wordList = items;
+        sightiesApp.wordIndex = 0;
+        sightiesApp.updateDisplay();
+      });
     }
   };
 
-  $.getJSON('words.json', function(data) {
-    var items = new Array();
-    var i;
-
-    for (i = 0; i < data.length; i++) {
-      items.push(data[i]['name']);
-    }
-    sightiesApp.wordList = items;
-    sightiesApp.updateDisplay();
-  });
+  sightiesApp.loadOrdered();
 
   $(document).keydown(function(e){
     if (e.keyCode == 37) { // left arrow
@@ -124,6 +139,11 @@ $(document).ready(function() {
     return false;
   });
 
+  $("#shuffle").click(function(e) {
+    sightiesApp.loadShuffled();
+    return false;
+  });
+
 });
 </script>
 </head>
@@ -134,5 +154,6 @@ $(document).ready(function() {
     <div id="previous">Previous</div>
     <div id="next">Next</div>
   </div>
+  <div id="shuffle">Shuffle</div>
 </body>
 </html>

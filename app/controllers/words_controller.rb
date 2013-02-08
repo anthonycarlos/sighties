@@ -3,7 +3,7 @@ class WordsController < ApplicationController
   # GET /words.json
   def index
     @words = Word.all
-
+    @words.shuffle! if params[:shuffled]
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @words }
