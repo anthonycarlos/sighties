@@ -7,15 +7,17 @@
 <script type="text/javascript" src="javascripts/jquery-ui-1.10.0.custom.js"></script>
 <link rel="stylesheet" href="stylesheets/jquery-ui-1.10.0.custom.css" />
 <style type="text/css">
-#container {
+#options {
+  width: 32px;
+}
+#navbar, #header {
   -moz-column-count: 3; /* Firefox */
   -webkit-column-count: 3; /* Safari and Chrome */
   column-count: 3;
   text-align: center;
   margin-top: 3em;
-}  
+}
 #shuffle {
-	padding: 1.4em 2em;
 }
 #previous {
 	padding: 1.4em 2em;
@@ -136,23 +138,48 @@ $(document).ready(function() {
     return false;
   });
 
-  $( "input[type=submit], a, button" )
+  $( "button#previous, button#next" )
     .button()
     .click(function( event ) {
       event.preventDefault();
     });
+
+  $( "#dialog-options" ).dialog({
+    autoOpen: false,
+    resizable: false,
+    height:240,
+    modal: true,
+    buttons: {
+      "OK": function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+
+  $( "#options" ).click(function() {
+    $( "#dialog-options" ).dialog( "open" );
+  });
+
 });
 </script>
 </head>
 <body>
-  <div id="word_index"></div>
+  <div id="header">
+    <img id="options" src="images/options.png" alt="Options" />
+    <br />
+    <div id="word_index"></div>
+  </div>
   <div id="the_word">Sighties</div>
-  <div id="container">
+  <div id="navbar">
     <button id="previous">Previous</button>
     <br />
-    <button id="shuffle">Shuffle</button>
     <br />
     <button id="next">Next</button>
+  </div>
+  <div id="dialog-options" title="Sighties Options">
+    <p style="text-align: center;">
+      <button id="shuffle">Shuffle</button>
+    </p>
   </div>
 </body>
 </html>
