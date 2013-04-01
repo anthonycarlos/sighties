@@ -1,0 +1,37 @@
+#options {
+  width: 32px;
+}
+#navbar, #header {
+  -moz-column-count: 3; /* Firefox */
+  -webkit-column-count: 3; /* Safari and Chrome */
+  column-count: 3;
+  text-align: center;
+  margin-top: 3em;
+}
+#shuffle {
+}
+#previous {
+	padding: 1.4em 2em;
+}
+#next {
+	padding: 1.4em 2em;
+}
+#the_word {
+  font-size: 216px;
+  font-family: Verdana;
+  font-weight: bold;
+  color: black;
+  width: auto;
+  margin: auto;
+  text-align: center;
+  height: 400px;
+  line-height: 400px;
+}
+#word_index {
+  font-size: 9px;
+  font-family: Helvetica;
+  color: #ddd;
+  width: auto;
+  text-align: center;
+}
+
