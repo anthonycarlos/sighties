@@ -16,6 +16,10 @@ This is a program to help Casey learn his sight words.
 before_filter.
 - [ ] Use ember.js to track the state of the app so that the ajax call
   to load words uses the correct list id.
+- [ ] Get rid of hack to load lists based on the last number in
+  document.URL.
+- [ ] Add UI to manage lists.
+- [ ] Add super list of all owned words.
 
 ["me", "and", "the", "up", "can", "go", "this", "my", "see", "at", "like", "said", "it", "is", "he", "am", "I", "come", "here", "no", "on", "that", "so", "in", "an", "yes", "you", "we", "do", "she", "to", "a"]
 list1 = ["me", "and", "the", "up", "can", "go", "this", "my", "see", "at", "like"] 
