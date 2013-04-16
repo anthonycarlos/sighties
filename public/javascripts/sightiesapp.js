@@ -50,7 +50,7 @@ $(document).ready(function() {
     },
     load : function(opts) {
       var queryStr = '?' + opts + '=true';
-      $.getJSON('lists/' + 1 + '/words.json' + queryStr, function(data) {
+      $.getJSON('lists/' + document.URL.match(/\d+$/g)[0] + '/words.json' + queryStr, function(data) {
         var items = new Array();
         var i;
 
