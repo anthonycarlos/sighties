@@ -49,8 +49,15 @@ $(document).ready(function() {
       this.load('shuffled');
     },
     load : function(opts) {
+      var qsNum = document.URL.match(/\d+$/g)
+      var list
+      if (qsNum) {
+        list = qsNum[0]
+      } else {
+        list = "1"
+      }
       var queryStr = '?' + opts + '=true';
-      $.getJSON('lists/' + document.URL.match(/\d+$/g)[0] + '/words.json' + queryStr, function(data) {
+      $.getJSON('lists/' + list + '/words.json' + queryStr, function(data) {
         var items = new Array();
         var i;
 
