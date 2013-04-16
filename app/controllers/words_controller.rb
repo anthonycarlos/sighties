@@ -4,7 +4,8 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.all
+    list = List.find(params[:list_id])
+    @words = list.words
     @words.shuffle! if params[:shuffled]
     respond_to do |format|
       format.html # index.html.erb

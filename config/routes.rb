@@ -1,7 +1,9 @@
 Sighties::Application.routes.draw do
   devise_for :users
 
-  resources :words
+  resources :lists do
+    resources :words
+  end
 
   root :to => "home#index"
   # The priority is based upon order of creation:
