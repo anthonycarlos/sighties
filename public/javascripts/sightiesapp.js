@@ -1,3 +1,57 @@
+window.App = Ember.Application.create({
+  LOG_TRANSITIONS: true
+});
+
+// Router
+App.Router.map(function() {
+  this.resource('lists', function() {
+    this.resource('list', {path: ':list_id'});
+  });
+});
+App.ListsRoute = Ember.Route.extend({
+  model: function() {
+    return App.List.find();
+  },
+  activate: function() {
+    alert('App.Lists(plural)Route.activate() called.');
+    sightiesApp.loadOrdered();
+
+  }
+});
+App.ListRoute = Ember.Route.extend({
+  activate: function() {
+    alert('App.List(singular)Route.activate() called.');
+    sightiesApp.loadOrdered();
+  }
+});
+
+// Controllers
+App.ListsController = Ember.ArrayController.extend();
+
+// Models
+App.Store = DS.Store.extend({
+  revision: 11,
+  adapter: 'DS.FixtureAdapter'
+});
+
+App.List = DS.Model.extend({
+  name:       DS.attr('string'),
+  owner_id:   DS.attr('number'),
+  created_at: DS.attr('date'),
+  updated_at: DS.attr('date')
+});
+
+App.List.FIXTURES = [{
+  id: 1
+}, {
+  id: 2
+}, {
+  id: 3
+}, {
+  id: 4
+}];
+
+
 $(document).ready(function() {
 
   sightiesApp = {
