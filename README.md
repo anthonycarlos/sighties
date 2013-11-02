@@ -26,3 +26,10 @@ list1 = ["me", "and", "the", "up", "can", "go", "this", "my", "see", "at", "like
 list2 = ["said", "it", "is", "he", "am", "I", "come", "here", "no", "on", "that"] 
 list3 = ["so", "in", "an", "yes", "you", "we", "do", "she", "to", "a"] 
 
+mitten, kitten
+clocks, socks
+moon, balloon
+chairs, bears
+house, mouse
+mush, brush
+
