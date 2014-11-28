@@ -15,4 +15,4 @@
 /tmp
 
 # Ignore Mac OS X utility files.
-**/.DS_Store
+.DS_Store
