@@ -1,7 +1,13 @@
 Sighties::Application.routes.draw do
+  resources :posts
+
+
   devise_for :users
 
   resources :lists do
+    member do
+      post 'add'
+    end
     resources :words
   end
 

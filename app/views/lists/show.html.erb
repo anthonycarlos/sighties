@@ -3,9 +3,33 @@
 <p>
   <b>Name:</b>
   <%= @list.name %>
-</p>
-
+  </p>
+  <%= form_tag(add_list_path(@list), :id => 'add') do %>
+<ol>
+  <% for wlm in @list.word_list_memberships %>
+    <%= content_tag(:li, wlm.name, :id => wlm.position) %>
+  <% end %>
+  <%= content_tag(:li, text_field_tag(:new_word) + ' ' + submit_tag('Add'), :id => 'new') %>
+</ol>
+<% end %>
 
 <%= link_to 'Edit', edit_list_path(@list) %> |
 <%= link_to 'Back', lists_path %>
 
+<script>
+$('#add').submit(function() {
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+      type: 'POST',
+      url: $(this).attr('action'),
+      data: valuesToSubmit,
+      dataType: 'JSON'
+    }).success(function(json){
+      var pos = json['word_list_membership']['position'];
+      var name = json['word']['name'];
+      $('li#' + (pos - 1)).after('<li id="' + pos + '">' + name + '</li>')
+      $('li#new input#new_word').val('');
+    });
+    return false; // prevents normal behaviour
+});
+</script>

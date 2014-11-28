@@ -1,6 +1,13 @@
 class ListsController < ApplicationController
   #before_filter :authenticate_user!, :except => :index
 
+  # POST /lists/1/add
+  def add
+    @list = List.find(params[:id])
+    wlm = @list.add_word_to_end(params[:new_word])
+    render json: { :word_list_membership => wlm, :word => wlm.word }
+  end
+
   # GET /lists
   # GET /lists.json
   def index
