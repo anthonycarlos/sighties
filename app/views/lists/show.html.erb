@@ -7,7 +7,7 @@
   <%= form_tag(add_list_path(@list), :id => 'add') do %>
 <ol>
   <% for wlm in @list.word_list_memberships %>
-    <%= content_tag(:li, wlm.name, :id => wlm.position) %>
+    <%= content_tag(:li, wlm.name + '   <span id="' + wlm.word_id.to_s + '" class="del">DEL</span>', {}, false) %>
   <% end %>
   <%= content_tag(:li, text_field_tag(:new_word) + ' ' + submit_tag('Add'), :id => 'new') %>
 </ol>
@@ -17,19 +17,32 @@
 <%= link_to 'Back', lists_path %>
 
 <script>
+$('.del').on('click', function() {
+  $.ajax({
+    type: 'POST',
+    url: '<%= del_list_path(@list) -%>',
+    data: {'word_id': $(this).attr('id')},
+    dataType: 'JSON'
+  }).success(function(json){
+    var word_id = json['word_id'];
+    var li = $('#' + word_id).parent();
+    li.remove();
+  });
+  return false; // prevents normal behaviour
+});
 $('#add').submit(function() {
-    var valuesToSubmit = $(this).serialize();
-    $.ajax({
-      type: 'POST',
-      url: $(this).attr('action'),
-      data: valuesToSubmit,
-      dataType: 'JSON'
-    }).success(function(json){
-      var pos = json['word_list_membership']['position'];
-      var name = json['word']['name'];
-      $('li#' + (pos - 1)).after('<li id="' + pos + '">' + name + '</li>')
-      $('li#new input#new_word').val('');
-    });
-    return false; // prevents normal behaviour
+  var valuesToSubmit = $(this).serialize();
+  $.ajax({
+    type: 'POST',
+    url: $(this).attr('action'),
+    data: valuesToSubmit,
+    dataType: 'JSON'
+  }).success(function(json){
+    var pos = json['word_list_membership']['position'];
+    var name = json['word']['name'];
+    $('li#' + (pos - 1)).after('<li id="' + pos + '">' + name + '</li>')
+    $('li#new input#new_word').val('');
+  });
+  return false; // prevents normal behaviour
 });
 </script>

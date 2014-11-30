@@ -8,6 +8,14 @@ class ListsController < ApplicationController
     render json: { :word_list_membership => wlm, :word => wlm.word }
   end
 
+  def del
+    @list = List.find(params[:id])
+    wlm = @list.word_list_memberships.find_by_word_id(params[:word_id])
+    wlm.word.destroy
+    wlm.destroy
+    render json: { 'word_id' => params[:word_id] }
+  end
+
   # GET /lists
   # GET /lists.json
   def index

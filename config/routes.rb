@@ -7,6 +7,7 @@ Sighties::Application.routes.draw do
   resources :lists do
     member do
       post 'add'
+      post 'del'
     end
     resources :words
   end
