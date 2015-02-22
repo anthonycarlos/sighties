@@ -1,4 +1,5 @@
 class List < ActiveRecord::Base
+  attr_accessible :name
   has_many :word_list_memberships
   has_many :words, :through => :word_list_memberships, :order => :position
 
